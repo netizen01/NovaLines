@@ -36,10 +36,10 @@ public enum NovaLineType: String {
 }
 
 
-@IBDesignable public class NovaLineView: UIView {
+@IBDesignable open class NovaLineView: UIView {
     
     
-    @IBInspectable public var lineColor: UIColor = .whiteColor() {
+    @IBInspectable open var lineColor: UIColor = .white {
         didSet {
             segment1.lineColor = lineColor
             segment2.lineColor = lineColor
@@ -47,15 +47,15 @@ public enum NovaLineType: String {
         }
     }
     
-    @IBInspectable public var animationSpringDamping: CGFloat = 0.7    // 0 = more spring. 1 = no spring
-    @IBInspectable public var animationSpringVelocity: CGFloat = 0.5
-    @IBInspectable public var animationDuration: Double = 0.5
-    @IBInspectable public var triangleCompact: CGFloat = 0.8
-    @IBInspectable public var inset: CGFloat = 0
+    @IBInspectable open var animationSpringDamping: CGFloat = 0.7    // 0 = more spring. 1 = no spring
+    @IBInspectable open var animationSpringVelocity: CGFloat = 0.5
+    @IBInspectable open var animationDuration: Double = 0.5
+    @IBInspectable open var triangleCompact: CGFloat = 0.8
+    @IBInspectable open var inset: CGFloat = 0
     
-    public var type: NovaLineType = .Line {
+    open var type: NovaLineType = .Line {
         didSet {
-            var center1 = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
+            var center1 = CGPoint(x: bounds.midX, y: bounds.midY)
             var center2 = center1
             var center3 = center1
             
@@ -273,7 +273,7 @@ public enum NovaLineType: String {
             segment3.center = center3
         }
     }
-    @IBInspectable public var lineRadius: CGFloat = 2 {
+    @IBInspectable open var lineRadius: CGFloat = 2 {
         didSet {
             segment1.radius = lineRadius
             segment2.radius = lineRadius
@@ -281,7 +281,7 @@ public enum NovaLineType: String {
         }
     }
     
-    @IBInspectable public var lineThickness: CGFloat = 4 {
+    @IBInspectable open var lineThickness: CGFloat = 4 {
         didSet {
             segment1.thickness = lineThickness
             segment2.thickness = lineThickness
@@ -290,13 +290,13 @@ public enum NovaLineType: String {
     }
     
     
-    public func setType(type: NovaLineType, animated: Bool) {
+    open func setType(_ type: NovaLineType, animated: Bool) {
         if animated {
-            UIView.animateWithDuration(animationDuration,
+            UIView.animate(withDuration: animationDuration,
                                        delay: 0,
                                        usingSpringWithDamping: animationSpringDamping,
                                        initialSpringVelocity: animationSpringVelocity,
-                                       options: [.BeginFromCurrentState],
+                                       options: [.beginFromCurrentState],
                                        animations:
                 {
                     self.type = type
@@ -310,9 +310,9 @@ public enum NovaLineType: String {
     }
     
     
-    public let segment1 = DoubleLineSegment(frame: CGRect.zero)
-    public let segment2 = DoubleLineSegment(frame: CGRect.zero)
-    public let segment3 = DoubleLineSegment(frame: CGRect.zero)
+    open let segment1 = DoubleLineSegment(frame: CGRect.zero)
+    open let segment2 = DoubleLineSegment(frame: CGRect.zero)
+    open let segment3 = DoubleLineSegment(frame: CGRect.zero)
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -326,16 +326,16 @@ public enum NovaLineType: String {
         initSegments()
     }
     
-    private func initSegments() {
-        userInteractionEnabled = false
+    fileprivate func initSegments() {
+        isUserInteractionEnabled = false
         
         addSubview(segment1)
         addSubview(segment2)
         addSubview(segment3)
         
-        segment1.userInteractionEnabled = false
-        segment2.userInteractionEnabled = false
-        segment3.userInteractionEnabled = false
+        segment1.isUserInteractionEnabled = false
+        segment2.isUserInteractionEnabled = false
+        segment3.isUserInteractionEnabled = false
         
         segment1.radius = lineRadius
         segment2.radius = lineRadius
@@ -346,17 +346,17 @@ public enum NovaLineType: String {
         segment3.thickness = lineThickness
     }
     
-    private var lineLength: CGFloat {
+    fileprivate var lineLength: CGFloat {
         return bounds.width * 0.5 - (inset + lineThickness * 0.5)
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         let inThick = (inset + lineThickness * 0.5)
-        segment1.frame = CGRectInset(bounds, inThick, inThick)
-        segment2.frame = CGRectInset(bounds, inThick, inThick)
-        segment3.frame = CGRectInset(bounds, inThick, inThick)
+        segment1.frame = bounds.insetBy(dx: inThick, dy: inThick)
+        segment2.frame = bounds.insetBy(dx: inThick, dy: inThick)
+        segment3.frame = bounds.insetBy(dx: inThick, dy: inThick)
         
         segment1.length = lineLength
         segment2.length = lineLength
@@ -366,8 +366,8 @@ public enum NovaLineType: String {
         self.type = type
     }
     
-    @available(*, unavailable, message="This property is reserved for Interface Builder. Use 'type' instead.")
-    @IBInspectable public var typeAdapter: String? {
+    @available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'type' instead.")
+    @IBInspectable open var typeAdapter: String? {
         willSet {
             if let newType = NovaLineType(rawValue: newValue ?? "") {
                 type = newType
@@ -396,36 +396,36 @@ private struct Angle {
 
 
 
-public class DoubleLineSegment: UIView {
+open class DoubleLineSegment: UIView {
     
-    private var angle: Angle = Angle(90, 180) {
+    fileprivate var angle: Angle = Angle(90, 180) {
         didSet {
             rebuildFrames()
         }
     }
     
-    private var length: CGFloat = 0 {
-        didSet {
-            recalculateAnchors()
-            rebuildFrames()
-        }
-    }
-    
-    private var thickness: CGFloat = 0 {
+    fileprivate var length: CGFloat = 0 {
         didSet {
             recalculateAnchors()
             rebuildFrames()
         }
     }
     
-    private var radius: CGFloat = 0 {
+    fileprivate var thickness: CGFloat = 0 {
+        didSet {
+            recalculateAnchors()
+            rebuildFrames()
+        }
+    }
+    
+    fileprivate var radius: CGFloat = 0 {
         didSet {
             topPath.layer.cornerRadius = radius
             bottomPath.layer.cornerRadius = radius
         }
     }
     
-    public var lineColor: UIColor = .whiteColor() {
+    open var lineColor: UIColor = .white {
         didSet {
             topPath.backgroundColor = lineColor
             bottomPath.backgroundColor = lineColor
@@ -433,11 +433,11 @@ public class DoubleLineSegment: UIView {
     }
     
     // Our "paths" are nothing more than UIViews. Pretty simple.
-    private let topPath = UIView(frame: CGRect.zero)
-    private let bottomPath = UIView(frame: CGRect.zero)
+    fileprivate let topPath = UIView(frame: CGRect.zero)
+    fileprivate let bottomPath = UIView(frame: CGRect.zero)
     
     // The anchor points attach the two paths
-    private func recalculateAnchors() {
+    fileprivate func recalculateAnchors() {
         let anchorMod: CGFloat
         if length > 0 && thickness > 0 {
             anchorMod = (thickness * 0.5) / length
@@ -451,24 +451,24 @@ public class DoubleLineSegment: UIView {
         bottomPath.layer.anchorPoint = CGPoint(x: anchorMod, y: 0.5)
     }
     
-    private func rebuildFrames() {
+    fileprivate func rebuildFrames() {
         // Reset the transform before rebuiling the frame
-        topPath.transform = CGAffineTransformMakeRotation(0)
-        bottomPath.transform = CGAffineTransformMakeRotation(0)
+        topPath.transform = CGAffineTransform(rotationAngle: 0)
+        bottomPath.transform = CGAffineTransform(rotationAngle: 0)
         
         // This sets up the paths like such:
         // -----top------X-----bottom------
         // ... where X is the anchor point for each path
         // top is pointing at 0 degrees and bottom is pointing at 180 degrees
-        topPath.frame = CGRectMake(thickness * 0.5, CGRectGetMidY(bounds) - thickness * 0.5, length, thickness)
-        bottomPath.frame = CGRectMake(CGRectGetMidX(bounds) - thickness * 0.5, CGRectGetMidY(bounds) - thickness * 0.5, length, thickness)
+        topPath.frame = CGRect(x: thickness * 0.5, y: bounds.midY - thickness * 0.5, width: length, height: thickness)
+        bottomPath.frame = CGRect(x: bounds.midX - thickness * 0.5, y: bounds.midY - thickness * 0.5, width: length, height: thickness)
         
         // The final angles are based on the "Point At" angle adjusted by half the interior angle
         let topAngle = -angle.pointAt + angle.interiorAngle * 0.5
         let bottomAngle = CGFloat(M_PI) - angle.pointAt - angle.interiorAngle * 0.5
         
-        topPath.transform = CGAffineTransformMakeRotation(topAngle)
-        bottomPath.transform = CGAffineTransformMakeRotation(bottomAngle)
+        topPath.transform = CGAffineTransform(rotationAngle: topAngle)
+        bottomPath.transform = CGAffineTransform(rotationAngle: bottomAngle)
     }
     
     override init(frame: CGRect) {
@@ -481,7 +481,7 @@ public class DoubleLineSegment: UIView {
         initPaths()
     }
     
-    private func initPaths() {
+    fileprivate func initPaths() {
         addSubview(bottomPath)
         addSubview(topPath)
         
@@ -495,9 +495,9 @@ public class DoubleLineSegment: UIView {
 
 
 
-@IBDesignable public class NovaLineButton: UIButton {
+@IBDesignable open class NovaLineButton: UIButton {
     
-    public let lineView = NovaLineView(frame: CGRect.zero)
+    open let lineView = NovaLineView(frame: CGRect.zero)
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -511,13 +511,13 @@ public class DoubleLineSegment: UIView {
         addSubview(lineView)
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         lineView.frame = bounds
     }
     
-    @IBInspectable public var cornerRadius: CGFloat {
+    @IBInspectable open var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
         }
@@ -613,7 +613,7 @@ extension NovaLineButton {
         }
     }
     
-    @available(*, unavailable, message="This property is reserved for Interface Builder. Use 'type' instead.")
+    @available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'type' instead.")
     @IBInspectable public var typeAdapter: String? {
         get {
             return lineView.type.rawValue
