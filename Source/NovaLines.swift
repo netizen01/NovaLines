@@ -6,6 +6,8 @@
 
 import UIKit
 
+
+
 public enum NovaLineType: String {
     case Line
     case Line2
@@ -36,10 +38,10 @@ public enum NovaLineType: String {
 }
 
 
-@IBDesignable open class NovaLineView: UIView {
+@IBDesignable public class NovaLineView: UIView {
     
     
-    @IBInspectable open var lineColor: UIColor = .white {
+    @IBInspectable public var lineColor: UIColor = .white {
         didSet {
             segment1.lineColor = lineColor
             segment2.lineColor = lineColor
@@ -47,13 +49,13 @@ public enum NovaLineType: String {
         }
     }
     
-    @IBInspectable open var animationSpringDamping: CGFloat = 0.7    // 0 = more spring. 1 = no spring
-    @IBInspectable open var animationSpringVelocity: CGFloat = 0.5
-    @IBInspectable open var animationDuration: Double = 0.5
-    @IBInspectable open var triangleCompact: CGFloat = 0.8
-    @IBInspectable open var inset: CGFloat = 0
+    @IBInspectable public var animationSpringDamping: CGFloat = 0.7    // 0 = more spring. 1 = no spring
+    @IBInspectable public var animationSpringVelocity: CGFloat = 0.5
+    @IBInspectable public var animationDuration: Double = 0.5
+    @IBInspectable public var triangleCompact: CGFloat = 0.8
+    @IBInspectable public var inset: CGFloat = 0
     
-    open var type: NovaLineType = .Line {
+    public var type: NovaLineType = .Line {
         didSet {
             var center1 = CGPoint(x: bounds.midX, y: bounds.midY)
             var center2 = center1
@@ -273,7 +275,7 @@ public enum NovaLineType: String {
             segment3.center = center3
         }
     }
-    @IBInspectable open var lineRadius: CGFloat = 2 {
+    @IBInspectable public var lineRadius: CGFloat = 2 {
         didSet {
             segment1.radius = lineRadius
             segment2.radius = lineRadius
@@ -281,7 +283,7 @@ public enum NovaLineType: String {
         }
     }
     
-    @IBInspectable open var lineThickness: CGFloat = 4 {
+    @IBInspectable public var lineThickness: CGFloat = 4 {
         didSet {
             segment1.thickness = lineThickness
             segment2.thickness = lineThickness
@@ -290,7 +292,7 @@ public enum NovaLineType: String {
     }
     
     
-    open func setType(_ type: NovaLineType, animated: Bool) {
+    public func setType(_ type: NovaLineType, animated: Bool) {
         if animated {
             UIView.animate(withDuration: animationDuration,
                                        delay: 0,
@@ -310,9 +312,9 @@ public enum NovaLineType: String {
     }
     
     
-    open let segment1 = DoubleLineSegment(frame: CGRect.zero)
-    open let segment2 = DoubleLineSegment(frame: CGRect.zero)
-    open let segment3 = DoubleLineSegment(frame: CGRect.zero)
+    private let segment1 = DoubleLineSegment(frame: CGRect.zero)
+    private let segment2 = DoubleLineSegment(frame: CGRect.zero)
+    private let segment3 = DoubleLineSegment(frame: CGRect.zero)
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -350,7 +352,7 @@ public enum NovaLineType: String {
         return bounds.width * 0.5 - (inset + lineThickness * 0.5)
     }
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         let inThick = (inset + lineThickness * 0.5)
@@ -367,7 +369,7 @@ public enum NovaLineType: String {
     }
     
     @available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'type' instead.")
-    @IBInspectable open var typeAdapter: String? {
+    @IBInspectable public var typeAdapter: String? {
         willSet {
             if let newType = NovaLineType(rawValue: newValue ?? "") {
                 type = newType
@@ -388,15 +390,15 @@ private struct Angle {
     
     // To make things easy, construct with degrees
     init(_ pointDeg: CGFloat, _ angleDeg: CGFloat) {
-        self.pointAt = pointDeg * CGFloat(M_PI / 180)
-        self.interiorAngle = angleDeg * CGFloat(M_PI / 180)
+        self.pointAt = pointDeg * (.pi / 180)
+        self.interiorAngle = angleDeg * (.pi / 180)
     }
     
 }
 
 
 
-open class DoubleLineSegment: UIView {
+private class DoubleLineSegment: UIView {
     
     fileprivate var angle: Angle = Angle(90, 180) {
         didSet {
@@ -425,7 +427,7 @@ open class DoubleLineSegment: UIView {
         }
     }
     
-    open var lineColor: UIColor = .white {
+    fileprivate var lineColor: UIColor = .white {
         didSet {
             topPath.backgroundColor = lineColor
             bottomPath.backgroundColor = lineColor
@@ -465,7 +467,7 @@ open class DoubleLineSegment: UIView {
         
         // The final angles are based on the "Point At" angle adjusted by half the interior angle
         let topAngle = -angle.pointAt + angle.interiorAngle * 0.5
-        let bottomAngle = CGFloat(M_PI) - angle.pointAt - angle.interiorAngle * 0.5
+        let bottomAngle = .pi - angle.pointAt - angle.interiorAngle * 0.5
         
         topPath.transform = CGAffineTransform(rotationAngle: topAngle)
         bottomPath.transform = CGAffineTransform(rotationAngle: bottomAngle)
@@ -497,7 +499,7 @@ open class DoubleLineSegment: UIView {
 
 @IBDesignable open class NovaLineButton: UIButton {
     
-    open let lineView = NovaLineView(frame: CGRect.zero)
+    public let lineView = NovaLineView(frame: CGRect.zero)
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -517,7 +519,7 @@ open class DoubleLineSegment: UIView {
         lineView.frame = bounds
     }
     
-    @IBInspectable open var cornerRadius: CGFloat {
+    @IBInspectable public var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
         }

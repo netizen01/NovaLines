@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
     spec.name           = 'NovaLines'
-    spec.version        = '0.1'
+    spec.version        = '0.2'
     spec.summary        = 'Animated Line Art'
 
     spec.homepage       = 'https://github.com/netizen01/NovaLines'
