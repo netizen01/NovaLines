@@ -6,40 +6,36 @@
 
 import UIKit
 
-
-
 public enum NovaLineType: String {
-    case Line
-    case Line2
-    case Line3
-    case Minus
-    case Menu2
-    case Menu3
-    case Close
-    case Add
-    case Square
-    case Left
-    case Right
-    case Up
-    case Down
-    case Left2
-    case Right2
-    case Up2
-    case Down2
-    case Download
-    case Download2
-    case Upload2
-    case Upload
-    case RightTriangle
-    case UpTriangle
-    case LeftTriangle
-    case DownTriangle
-    case Check
+    case line
+    case line2
+    case line3
+    case minus
+    case menu2
+    case menu3
+    case close
+    case add
+    case square
+    case left
+    case right
+    case up
+    case down
+    case left2
+    case right2
+    case up2
+    case down2
+    case download
+    case download2
+    case upload2
+    case upload
+    case rightTriangle
+    case upTriangle
+    case leftTriangle
+    case downTriangle
+    case check
 }
 
-
 @IBDesignable public class NovaLineView: UIView {
-    
     
     @IBInspectable public var lineColor: UIColor = .white {
         didSet {
@@ -55,7 +51,7 @@ public enum NovaLineType: String {
     @IBInspectable public var triangleCompact: CGFloat = 0.8
     @IBInspectable public var inset: CGFloat = 0
     
-    public var type: NovaLineType = .Line {
+    public var type: NovaLineType = .line {
         didSet {
             var center1 = CGPoint(x: bounds.midX, y: bounds.midY)
             var center2 = center1
@@ -68,12 +64,12 @@ public enum NovaLineType: String {
             
             
             switch type {
-            case .Line:
+            case .line:
                 segment1.angle = Angle(0, 180)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
                 
-            case .Line2:
+            case .line2:
                 segment1.angle = Angle(0, 180)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
@@ -81,7 +77,7 @@ public enum NovaLineType: String {
                 center2.x = center2.x + lineLength * 0.3
                 center3 = center2
                 
-            case .Line3:
+            case .line3:
                 segment1.angle = Angle(0, 180)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
@@ -89,12 +85,12 @@ public enum NovaLineType: String {
                 center3.x = center3.x + lineLength * 0.6
                 
                 
-            case .Minus:
+            case .minus:
                 segment1.angle = Angle(90, 180)
                 segment2.angle = Angle(90, 180)
                 segment3.angle = Angle(90, 180)
                 
-            case .Menu2:
+            case .menu2:
                 segment1.angle = Angle(90, 180)
                 segment2.angle = Angle(90, 180)
                 segment3.angle = Angle(90, 180)
@@ -102,24 +98,24 @@ public enum NovaLineType: String {
                 center2.y = center2.y + lineLength * 0.3
                 center3 = center2
                 
-            case .Menu3:
+            case .menu3:
                 segment1.angle = Angle(90, 180)
                 segment2.angle = Angle(90, 180)
                 segment3.angle = Angle(90, 180)
                 center1.y = center1.y - lineLength * 0.6
                 center3.y = center3.y + lineLength * 0.6
                 
-            case .Add:
+            case .add:
                 segment1.angle = Angle(90, 180)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
                 
-            case .Close:
+            case .close:
                 segment1.angle = Angle(45, 180)
                 segment2.angle = Angle(135, 180)
                 segment3.angle = Angle(135, 180)
                 
-            case .Square:
+            case .square:
                 segment1.angle = Angle(135, 90)
                 segment2.angle = Angle(315, 90)
                 segment3.angle = Angle(315, 90)
@@ -129,7 +125,7 @@ public enum NovaLineType: String {
                 center2.y = center2.y + halfLength - halfThickness
                 center3 = center2
                 
-            case .Left:
+            case .left:
                 segment1.angle = Angle(225, 0)
                 segment2.angle = Angle(135, 0)
                 segment3.angle = Angle(135, 0)
@@ -137,7 +133,7 @@ public enum NovaLineType: String {
                 center2 = center1
                 center3 = center1
                 
-            case .Right:
+            case .right:
                 segment1.angle = Angle(315, 0)
                 segment2.angle = Angle(45, 0)
                 segment3.angle = Angle(45, 0)
@@ -145,7 +141,7 @@ public enum NovaLineType: String {
                 center2 = center1
                 center3 = center1
                 
-            case .Up:
+            case .up:
                 segment1.angle = Angle(45, 0)
                 segment2.angle = Angle(135, 0)
                 segment3.angle = Angle(135, 0)
@@ -153,7 +149,7 @@ public enum NovaLineType: String {
                 center2 = center1
                 center3 = center1
                 
-            case .Down:
+            case .down:
                 segment1.angle = Angle(225, 0)
                 segment2.angle = Angle(315, 0)
                 segment3.angle = Angle(315, 0)
@@ -161,7 +157,7 @@ public enum NovaLineType: String {
                 center2 = center1
                 center3 = center1
                 
-            case .Left2:
+            case .left2:
                 segment1.angle = Angle(180, 90)
                 segment2.angle = Angle(180, 90)
                 segment3.angle = Angle(180, 90)
@@ -169,7 +165,7 @@ public enum NovaLineType: String {
                 center2.x = center2.x + halfThickness
                 center3 = center2
                 
-            case .Right2:
+            case .right2:
                 segment1.angle = Angle(0, 90)
                 segment2.angle = Angle(0, 90)
                 segment3.angle = Angle(0, 90)
@@ -177,7 +173,7 @@ public enum NovaLineType: String {
                 center2.x = center2.x + lineLength * 0.8 - halfThickness
                 center3 = center2
                 
-            case .Up2:
+            case .up2:
                 segment1.angle = Angle(90, 90)
                 segment2.angle = Angle(90, 90)
                 segment3.angle = Angle(90, 90)
@@ -185,7 +181,7 @@ public enum NovaLineType: String {
                 center2.y = center2.y + halfThickness
                 center3 = center2
                 
-            case .Down2:
+            case .down2:
                 segment1.angle = Angle(270, 90)
                 segment2.angle = Angle(270, 90)
                 segment3.angle = Angle(270, 90)
@@ -193,33 +189,33 @@ public enum NovaLineType: String {
                 center2.y = center2.y + lineLength * 0.8 - halfThickness
                 center3 = center2
                 
-            case .Download:
+            case .download:
                 segment1.angle = Angle(270, 90)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
                 center1.y = center1.y + lineLength - lineThickness
                 
-            case .Upload:
+            case .upload:
                 segment1.angle = Angle(90, 90)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(0, 180)
                 center1.y = center1.y - lineLength + lineThickness
                 
-            case .Download2:
+            case .download2:
                 segment1.angle = Angle(270, 90)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(90, 180)
                 center1.y = center1.y + lineLength - lineThickness
                 center3.y = center3.y + lineLength
                 
-            case .Upload2:
+            case .upload2:
                 segment1.angle = Angle(90, 90)
                 segment2.angle = Angle(0, 180)
                 segment3.angle = Angle(90, 180)
                 center1.y = center1.y - lineLength + lineThickness
                 center3.y = center3.y - lineLength
                 
-            case .UpTriangle:
+            case .upTriangle:
                 segment1.angle = Angle(90, 60)
                 segment2.angle = Angle(330, 60)
                 segment3.angle = Angle(210, 60)
@@ -229,7 +225,7 @@ public enum NovaLineType: String {
                 center3.y = center3.y + lineLength * triangleBaseMod * triangleCompact
                 center3.x = center3.x - lineLength * triangleCompact
                 
-            case .DownTriangle:
+            case .downTriangle:
                 segment1.angle = Angle(270, 60)
                 segment2.angle = Angle(150, 60)
                 segment3.angle = Angle(30, 60)
@@ -239,7 +235,7 @@ public enum NovaLineType: String {
                 center3.y = center3.y - lineLength * triangleBaseMod * triangleCompact
                 center3.x = center3.x + lineLength * triangleCompact
                 
-            case .LeftTriangle:
+            case .leftTriangle:
                 segment1.angle = Angle(180, 60)
                 segment2.angle = Angle(60, 60)
                 segment3.angle = Angle(300, 60)
@@ -249,7 +245,7 @@ public enum NovaLineType: String {
                 center3.y = center3.y + lineLength * triangleCompact
                 center3.x = center3.x + lineLength * triangleBaseMod * triangleCompact
                 
-            case .RightTriangle:
+            case .rightTriangle:
                 segment1.angle = Angle(0, 60)
                 segment2.angle = Angle(240, 60)
                 segment3.angle = Angle(120, 60)
@@ -259,7 +255,7 @@ public enum NovaLineType: String {
                 center3.x = center3.x - lineLength * triangleBaseMod * triangleCompact
                 center3.y = center3.y - lineLength * triangleCompact
                 
-            case .Check:
+            case .check:
                 segment1.angle = Angle(270, 90)
                 segment2.angle = Angle(225, 0)
                 segment3.angle = Angle(225, 0)
