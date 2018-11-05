@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
     spec.name                   = 'NovaLines'
-    spec.version                = '0.5'
+    spec.version                = '0.7'
     spec.summary                = 'Animated Line Art'
 
     spec.homepage               = 'https://github.com/netizen01/NovaLines'
@@ -13,6 +13,6 @@ Pod::Spec.new do |spec|
     spec.source                 = { :git => 'https://github.com/netizen01/NovaLines.git',
                                     :tag => spec.version.to_s }
     spec.source_files           = 'Source/**/*.swift'
-    spec.pod_target_xcconfig    = { 'SWIFT_VERSION' => '4.0' }
+    spec.swift_version          = '4.2'
 
 end
